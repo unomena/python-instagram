@@ -95,11 +95,7 @@ class OAuth2AuthExchangeRequest(object):
         http_object = Http(disable_ssl_certificate_validation=True)
 
         url = self._url_for_authorize(scope=scope)
-        response, content = http_object.request(url)
-        if response['status'] != '200':
-            raise OAuth2AuthExchangeError("The server returned a non-200 response for URL %s" % url)
-        redirected_to = response['content-location']
-        return redirected_to
+        return url
 
     def exchange_for_access_token(self, code=None, username=None, password=None, scope=None, user_id=None):
         data = self._data_for_exchange(code, username, password, scope=scope, user_id=user_id)
